@@ -1,0 +1,7 @@
+{
+  "name": "wizard-poc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
