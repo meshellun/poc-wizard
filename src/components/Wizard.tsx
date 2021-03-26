@@ -5,10 +5,13 @@ import {
   IonCol,
   IonButton
 } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 
+//show data and data collctor?
 const Wizard: React.FC<{handleSubmit: any, handleNext: any, handleBack: any}> = ({children, handleSubmit, handleNext, handleBack}) => {
     console.log('MDY114 CHIDLREN '+ children);
     console.log('MDY114 TYPEOF CHILDREN ' + typeof children);
+    let history = useHistory();
   const [steps, setSteps]= useState<any[]>([]);
   const [activeStep, setActiveStep] = useState<any>();
   useEffect(() => {
@@ -26,12 +29,16 @@ const Wizard: React.FC<{handleSubmit: any, handleNext: any, handleBack: any}> = 
     setActiveStep(steps[0])
   },[steps])
 
+  useEffect(() => {
+
+  }, [history])
+
   const [activeChild] = React.Children.toArray(children).filter((child: any) => {
     console.log(child);
     return(child.props.id === activeStep)});
   console.log(activeChild);
   
-  const shouldShowNextButton = () => (steps.indexOf(activeStep) !== (steps.length - 1)); 
+  const showNextButton = () => (steps.indexOf(activeStep) !== (steps.length - 1)); 
   const showBackButton = () => (steps.indexOf(activeStep) !== 0);
 
   return (
@@ -41,7 +48,7 @@ const Wizard: React.FC<{handleSubmit: any, handleNext: any, handleBack: any}> = 
           <IonCol>
               <IonRow>
                   <IonCol>
-                            {(shouldShowNextButton()) ? 
+                            {(showNextButton()) ? 
                               (
                                 <IonButton data-test='next-button' disabled={false} onClick={handleNext} class="ion-float-right" size="large">Next</IonButton>
                               )
